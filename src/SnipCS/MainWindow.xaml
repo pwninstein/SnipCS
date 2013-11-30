@@ -1,0 +1,25 @@
+﻿<Window x:Class="SnipCS.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:SnipCS.ViewModel;assembly=SnipCS"
+        xmlns:fctb="clr-namespace:FastColoredTextBoxNS;assembly=FastColoredTextBox"
+        Title="MainWindow" Height="350" Width="525"
+        DataContext="{Binding Main, Source={StaticResource Locator}}">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding BuildCommand}" Gesture="F5" />
+    </Window.InputBindings>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="5">
+            <Button Content="Build" Command="{Binding BuildCommand}" />
+        </StackPanel>
+        <WindowsFormsHost Grid.Row="1">
+            <WindowsFormsHost.Child>
+                <fctb:FastColoredTextBox Language="CSharp" TextChanged="FastColoredTextBox_TextChanged"/>
+            </WindowsFormsHost.Child>
+        </WindowsFormsHost>
+    </Grid>
+</Window>
