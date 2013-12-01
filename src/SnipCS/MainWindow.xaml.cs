@@ -17,7 +17,12 @@ namespace SnipCS
 
         private void FastColoredTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            _viewModel.Code = ((FastColoredTextBox)sender).Text;
+            _viewModel.Code = CodeTextBox.Text;
+        }
+
+        private void WindowsFormsHost_Loaded(object sender, RoutedEventArgs e)
+        {
+            CodeTextBox.Focus();
         }
     }
 }

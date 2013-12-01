@@ -43,7 +43,7 @@ namespace SnipCS.ViewModel
             ////    SimpleIoc.Default.Register<IDataService, DataService>();
             ////}
 
-            SimpleIoc.Default.Register<ICompileService, CompileService>();
+            SimpleIoc.Default.Register<ISnipService, SnipService>();
             SimpleIoc.Default.Register<MainViewModel>();
         }
 

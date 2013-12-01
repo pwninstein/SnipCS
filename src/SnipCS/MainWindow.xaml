@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:SnipCS.ViewModel;assembly=SnipCS"
         xmlns:fctb="clr-namespace:FastColoredTextBoxNS;assembly=FastColoredTextBox"
-        Title="MainWindow" Height="350" Width="525"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        Title="MainWindow" Height="550" Width="600"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
     <Window.InputBindings>
         <KeyBinding Command="{Binding BuildCommand}" Gesture="F5" />
@@ -12,14 +13,31 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition />
+            <RowDefinition Height="250"/>
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Margin="5">
             <Button Content="Build" Command="{Binding BuildCommand}" />
         </StackPanel>
-        <WindowsFormsHost Grid.Row="1">
+        <WindowsFormsHost Grid.Row="1" Loaded="WindowsFormsHost_Loaded">
             <WindowsFormsHost.Child>
-                <fctb:FastColoredTextBox Language="CSharp" TextChanged="FastColoredTextBox_TextChanged"/>
+                <fctb:FastColoredTextBox x:Name="CodeTextBox" Language="CSharp" TextChanged="FastColoredTextBox_TextChanged"/>
             </WindowsFormsHost.Child>
         </WindowsFormsHost>
+        <TabControl Grid.Row="2">
+            <TabItem Header="Build Output" IsSelected="{Binding IsBuildOutputSelected}">
+                <TextBox Text="{Binding BuildOutput, Mode=OneWay}" IsReadOnly="True"
+                         TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+            </TabItem>
+            <TabItem Header="Program Output" IsSelected="{Binding IsProgramOutputSelected}">
+                <TextBox Text="{Binding ProgramOutput, Mode=OneWay}" IsReadOnly="True"
+                         TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+            </TabItem>
+        </TabControl>
+        <StatusBar Grid.Row="3">
+            <DockPanel>
+                <Label Content="{Binding Status, FallbackValue={x:Static sys:String.Empty}}"/>
+            </DockPanel>
+        </StatusBar>
     </Grid>
 </Window>
